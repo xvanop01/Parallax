@@ -6,19 +6,19 @@
 
 simulator::Sensor::Sensor(std::string line) {
     this->topic = line.substr(0, line.find(' '));
-    std::string parsed = line.substr(0, line.find(' ', this->topic.size() + 1));
+    std::string parsed = line.substr(0, line.find(' '));
     this->instances = stoi(line.substr(parsed.size() + 1, line.find(' ', parsed.size() + 1)));
+    parsed = line.substr(0,line.find(' ', parsed.size() + 1));
     this->rangeMin = std::stof(line.substr(parsed.size() + 1,line.find(' ', parsed.size() + 1)));
     parsed = line.substr(0,line.find(' ', parsed.size() + 1));
     this->rangeMax = std::stof(line.substr(parsed.size() + 1, line.size()));
-    this->actualInstance = new std::vector();
+    this->actualInstance = {};
     for (int i = 0; i < this->instances; i++) {
         this->actualInstance.push_back((float)(rand() % (this->rangeMax - this->rangeMin) + this->rangeMin));
     }
 }
 
 simulator::Sensor::~Sensor() {
-    delete this->actualInstance;
 }
 
 std::string simulator::Sensor::getTopic() {
@@ -26,6 +26,10 @@ std::string simulator::Sensor::getTopic() {
 }
 
 std::vector<std::string> simulator::Sensor::getMessages() {
-    std::vector<std::string>
-    return std::vector<std::string>();
+    std::vector<std::string> responses = {};
+    for (int i = 0; i < this->instances; i++) {
+        responses.push_back("{\"ID\":" + this->topic + std::to_string(i) + ", \"value\":" +
+        std::to_string(this->actualInstance[i]) + "}");
+    }
+    return responses;
 }

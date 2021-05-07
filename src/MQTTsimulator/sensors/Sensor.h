@@ -14,8 +14,8 @@ namespace simulator {
         std::string topic;
         std::vector<float> actualInstance;
         int instances;
-        float rangeMin;
-        float rangeMax;
+        int rangeMin;
+        int rangeMax;
     public:
         explicit Sensor(std::string line);
 
