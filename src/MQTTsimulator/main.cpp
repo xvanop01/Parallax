@@ -1,6 +1,9 @@
-//
-// Created by xvanop01 on 6. 5. 2021.
-//
+/**
+ * @brief Parallax application Data feeder
+ * Loads data from config files and simulate MQTT transmissions based on them
+ * @author xjurke02
+ * @author xvanop01
+ */
 #ifdef _WIN32
 #include <Windows.h>
 #else
@@ -21,6 +24,10 @@
 
 bool sigint_received = false;
 
+/**
+ * Register SIGINT and tell the program to end
+ * @param signum signal number
+ */
 void signalHandler( int signum ) {
     std::cout << "Received signal " << signum << "\n";
     if (signum == SIGINT) {
@@ -29,6 +36,9 @@ void signalHandler( int signum ) {
     }
 }
 
+/**
+ * Main function launching application
+ */
 int main(int argc, char* argv[]) {
     signal(SIGINT, signalHandler);
     std::string configPath;
@@ -60,18 +70,13 @@ int main(int argc, char* argv[]) {
         sensors.push_back(new simulator::Sensor(line));
     }
     simConfigFile.close();
-    for (auto & sensor : sensors) {
-        std::cout << sensor->getTopic() << "\n";
-        for (auto & msg : sensor->getMessages()) {
-            std::cout << msg << "\n";
-        }
-    }
+
     auto connectOptions = mqtt::connect_options_builder()
             .mqtt_version(5)
             .properties({{mqtt::property::SESSION_EXPIRY_INTERVAL, 100}})
             .keep_alive_interval(std::chrono::minutes(1))
             .finalize();
-    mqtt::async_client client(SERVER_ADDRESS, "", mqtt::create_options(MQTTVERSION_5));
+    mqtt::async_client client(SERVER_ADDRESS, "ParallaxDataFeeder", mqtt::create_options(MQTTVERSION_5));
     try {
         std::cout << "Connecting to server..\n";
         auto connection = client.connect(connectOptions);

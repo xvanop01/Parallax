@@ -1,6 +1,10 @@
-//
-// Created by xvanop01 on 6. 5. 2021.
-//
+/**
+ * @file src/MQTTsimulator/sensors/Sensor.h
+ * Implementation of Sensor.h
+ * @see Sensor.h
+ * @author xjurke02
+ * @author xvanop01
+ */
 
 #include "Sensor.h"
 
@@ -28,8 +32,14 @@ std::string simulator::Sensor::getTopic() {
 std::vector<std::string> simulator::Sensor::getMessages() {
     std::vector<std::string> responses = {};
     for (int i = 0; i < this->instances; i++) {
-        responses.push_back("{\"ID\":" + this->topic + std::to_string(i) + ", \"value\":" +
-        std::to_string(this->actualInstance[i]) + "}");
+        responses.push_back("{\"ID\":\"" + this->topic + std::to_string(i) + "\", \"value\":\"" +
+        std::to_string(this->actualInstance[i]) + "\"}");
+        this->actualInstance[i] += ((float)(rand()) / (float)(RAND_MAX/2)) - 1;
+        if (this->actualInstance[i] < this->rangeMin) {
+            this->actualInstance[i]++;
+        } else if (this->actualInstance[i] > this->rangeMax) {
+            this->actualInstance[i]--;
+        }
     }
     return responses;
 }
