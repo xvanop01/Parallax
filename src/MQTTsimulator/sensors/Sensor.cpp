@@ -1,7 +1,5 @@
 /**
- * @file src/MQTTsimulator/sensors/Sensor.h
  * Implementation of Sensor.h
- * @see Sensor.h
  * @author xjurke02
  * @author xvanop01
  */

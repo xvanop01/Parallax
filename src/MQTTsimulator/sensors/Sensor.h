@@ -44,5 +44,4 @@ namespace simulator {
     };
 }
 
-
 #endif //PARALLAX_SENSOR_H

@@ -29,13 +29,13 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tabExplorer">
     <attribute name="title">
      <string>Explorer</string>
     </attribute>
-    <widget class="QTreeView" name="structureView">
+    <widget class="QTreeWidget" name="structureView">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -44,6 +44,11 @@
        <height>544</height>
       </rect>
      </property>
+     <column>
+      <property name="text">
+       <string>Topic</string>
+      </property>
+     </column>
     </widget>
     <widget class="QLabel" name="structureTitle">
      <property name="geometry">

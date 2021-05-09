@@ -1,14 +1,11 @@
-#include <iostream>
-#include <cstdlib>
-#include <string>
-#include <cstring>
-#include <cctype>
-#include <thread>
-#include <chrono>
-#include "mqtt/async_client.h"
-#include "mqtt/topic.h"
+#include "widget.h"
+#include <QApplication>
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    std::cout << "Explorer\n";
+    QApplication a(argc, argv);
+    Widget w;
+    w.show();
+
+    return a.exec();
 }

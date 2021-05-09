@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
         }
     }
     if (configPath.empty()) {
-        configPath = "../config/simDefault.config";
+        configPath = "config/simDefault.config";
     }
     std::fstream simConfigFile;
     simConfigFile.open(configPath, std::ios::in);
@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
             .properties({{mqtt::property::SESSION_EXPIRY_INTERVAL, 100}})
             .keep_alive_interval(std::chrono::minutes(1))
             .finalize();
-    mqtt::async_client client(SERVER_ADDRESS, "ParallaxDataFeeder", mqtt::create_options(MQTTVERSION_5));
+    mqtt::async_client client(SERVER_ADDRESS, "", mqtt::create_options(MQTTVERSION_5));
     try {
         std::cout << "Connecting to server..\n";
         auto connection = client.connect(connectOptions);
@@ -96,6 +96,12 @@ int main(int argc, char* argv[]) {
             }
         }
         sleep(1);
+    }
+
+    try {
+        client.disconnect()->wait();
+    } catch (const mqtt::exception& e) {
+
     }
 
     for (auto & sensor : sensors) {

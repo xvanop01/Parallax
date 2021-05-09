@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Parallax
+TARGET = ParallaxExplorer
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -25,10 +25,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        widget.cpp
+        widget.cpp \
+        mqttMsgStruct/Messages.cpp
 
 HEADERS += \
-        widget.h
+        widget.h \
+        mqttMsgStruct/Messages.h
 
 FORMS += \
         widget.ui
+
+unix|win32: LIBS += -lpaho-mqtt3a -lpaho-mqtt3c -lpaho-mqttpp3
