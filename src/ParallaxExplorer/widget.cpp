@@ -1,3 +1,9 @@
+/**
+ * @brief Parallax application Widget Functions 
+ * Functions for handling signals from UI
+ * @author xjurke02
+ * @author xvanop01
+ */
 #include "widget.h"
 #include "ui_widget.h"
 #include "mqttMsgStruct/Messages.h"

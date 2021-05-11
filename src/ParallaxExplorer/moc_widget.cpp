@@ -1,10 +1,10 @@
-/****************************************************************************
-** Meta object code from reading C++ file 'widget.h'
-**
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.5)
-**
-** WARNING! All changes made in this file will be lost!
-*****************************************************************************/
+/**
+ * @brief Parallax application Object Code
+ * Meta object code from reading C++ file 'widget.h'
+ * @author xjurke02
+ * @author xvanop01
+ * @note Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.5)
+ */
 
 #include "widget.h"
 #include <QtCore/qbytearray.h>

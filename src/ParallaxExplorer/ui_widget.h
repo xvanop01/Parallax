@@ -1,3 +1,11 @@
+/**
+ * @brief Parallax application UI Form
+ * Form generated from reading UI file 'widget.ui'
+ * @author xjurke02
+ * @author xvanop01
+ * @note Created by: Qt User Interface Compiler version 5.9.5
+ */
+
 /********************************************************************************
 ** Form generated from reading UI file 'widget.ui'
 **

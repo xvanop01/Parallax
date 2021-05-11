@@ -1,6 +1,8 @@
-//
-// Created by xvanop01 on 8. 5. 2021.
-//
+/**
+ * @brief Parallax application Messages Administration
+ * Functions which administrate messages (saving, getting, etc.)
+ * @author xvanop01
+ */
 
 #include "mqttMsgStruct/Messages.h"
 
@@ -175,23 +177,3 @@ void explorer::Messages::sendMsg(std::string top, std::string msg, mqtt::async_c
     topic.publish(msg)->wait();
 }
 
-void explorer::Messages::saveAll(struct topic *target) {
-    std::string path;
-    if (target->name.empty()) {
-        path = SAVE_LOCATION + "payload.txt";
-    } else {
-        path = SAVE_LOCATION + target->name + "/payload.txt";
-    }
-    std::ofstream payload(path);
-    if (!payload.is_open()) {
-        std::cerr << "Can't open file for save!\n";
-        return;
-    }
-    for (auto & msg : target->messages){
-        payload << msg << "\n";
-    }
-    payload.close();
-    for (auto & subtop : target->subtopic) {
-        this->saveAll(subtop);
-    }
-}
