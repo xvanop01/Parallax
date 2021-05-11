@@ -1,6 +1,6 @@
 include_mqtt = -lpaho-mqtt3c -lpaho-mqtt3a -lpaho-mqttpp3
 dataFeeder: main.o Sensor.o
-	g++ -o ../ParallaxDataFeeder build/main.o build/Sensor.o ${include_mqtt}
+	g++ -o ../ParallaxDataFeeder.exe build/main.o build/Sensor.o ${include_mqtt}
 
 Sensor.o: mkdirBuild
 	g++ -o build/Sensor.o -c sensors/Sensor.cpp

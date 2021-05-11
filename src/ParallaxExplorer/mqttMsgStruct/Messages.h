@@ -7,6 +7,8 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
+#include <fstream>
 #include "mqtt/async_client.h"
 #include "mqtt/topic.h"
 #include <QTreeWidgetItem>
@@ -15,7 +17,8 @@
 
 #define QOS 1
 #define SERVER_ADDRESS "tcp://localhost:1883"
-#define SEND_MY_MSGS false
+#define SEND_MY_MSGS true
+#define SAVE_LOCATION (std::string)"save/"
 
 namespace explorer {
     struct topic {
@@ -36,7 +39,10 @@ namespace explorer {
         void saveMsg(std::vector<std::string> parsedTopics, std::string msg);
         static std::vector<std::string> parseTopic(std::string topic);
         std::vector<std::vector<std::string>> getMessages(std::vector<std::string> parsedTopics);
-        static void createChild(struct topic *ref, QAbstractItemModel *target, Ui::Widget* ui);
+        static void createChild(struct topic *ref, QTreeWidgetItem *target, Ui::Widget* ui);
+        static void deleteChild(QTreeWidgetItem *target);
+        void sendMsg(std::string top, std::string msg, mqtt::async_client* client);
+        void saveAll(struct topic *target);
     };
 }
 

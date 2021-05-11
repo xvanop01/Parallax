@@ -91,7 +91,7 @@ std::vector<std::vector<std::string>> explorer::Messages::getMessages(std::vecto
     bool found;
     while (!parsedTopics.empty()) {
         found = false;
-        if (parsedTopics[0] == "/#") {
+        if (parsedTopics[0] == "#" || parsedTopics[0] == "/#") {
             break;
         }
         for (auto & t : targetTopic->subtopic) {
@@ -112,7 +112,7 @@ std::vector<std::vector<std::string>> explorer::Messages::getMessages(std::vecto
         }
     }
     std::vector<std::string> empty = {};
-    if (parsedTopics[0] == "/#") {
+    if (parsedTopics[0] == "#" || parsedTopics[0] == "/#") {
         std::vector<explorer::topic*> buffer = {};
         buffer.push_back(targetTopic);
         while (!buffer.empty()) {
@@ -132,23 +132,66 @@ std::vector<std::vector<std::string>> explorer::Messages::getMessages(std::vecto
             }
             buffer.erase(buffer.begin());
         }
+    } else {
+        if (!targetTopic->messages.empty()) {
+            empty.push_back(targetTopic->name);
+            for (auto & msg : targetTopic->messages) {
+                empty.push_back(msg);
+            }
+            returnVector.push_back(empty);
+        }
     }
     return returnVector;
 }
 
-void explorer::Messages::createChild(struct topic *ref, QAbstractItemModel *target, Ui::Widget *ui) {
+void explorer::Messages::createChild(struct topic *ref, QTreeWidgetItem *target, Ui::Widget *ui) {
+    QTreeWidgetItem *newItem;
     for (auto & top : ref->subtopic) {
         if (target == nullptr) {
-            target = ui->structureView->model();
+            newItem = new QTreeWidgetItem(ui->structureView);
+            ui->structureView->addTopLevelItem(newItem);
+        } else {
+            newItem = new QTreeWidgetItem(target);
+            target->addChild(newItem);
         }
-        if (target->insertRow(target->rowCount())) {
-            std::cerr << "RowInserted\n";
-            target->setData(target->index(target->rowCount()-1, 0), QString::fromStdString(top->name));
-        }
-        if (!top->subtopic.empty()) {
-            for (auto & subtopic : top->subtopic) {
-                //TODO createChild(subtopic, (QAbstractItemModel*)(), ui);
-            }
-        }
+        std::vector<std::string> topicName = explorer::Messages::parseTopic(top->name);
+        newItem->setText(0, QString::fromStdString(topicName[topicName.size()-1]));
+        newItem->setExpanded(true);
+        createChild(top, newItem, ui);
+    }
+}
+
+void explorer::Messages::deleteChild(QTreeWidgetItem *target){
+    int childCount = target->childCount();
+    for (int i = 0; childCount > i; i++) {
+        QTreeWidgetItem *child = target->child(i);
+        target->removeChild(child);
+        deleteChild(target);
+    }
+}
+
+void explorer::Messages::sendMsg(std::string top, std::string msg, mqtt::async_client *client) {
+    mqtt::topic topic{*client, top, QOS};
+    topic.publish(msg)->wait();
+}
+
+void explorer::Messages::saveAll(struct topic *target) {
+    std::string path;
+    if (target->name.empty()) {
+        path = SAVE_LOCATION + "payload.txt";
+    } else {
+        path = SAVE_LOCATION + target->name + "/payload.txt";
+    }
+    std::ofstream payload(path);
+    if (!payload.is_open()) {
+        std::cerr << "Can't open file for save!\n";
+        return;
+    }
+    for (auto & msg : target->messages){
+        payload << msg << "\n";
+    }
+    payload.close();
+    for (auto & subtop : target->subtopic) {
+        this->saveAll(subtop);
     }
 }
