@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
         }
     }
     if (configPath.empty()) {
-        configPath = "config/simDefault.config";
+        configPath = "src/config/simDefault.config";
     }
     std::fstream simConfigFile;
     simConfigFile.open(configPath, std::ios::in);
