@@ -6,13 +6,6 @@
  */
 #include "widget.h"
 #include "ui_widget.h"
-#include "mqttMsgStruct/Messages.h"
-#include "mqtt/async_client.h"
-
-explorer::Messages* messages;
-mqtt::async_client* client;
-std::string lastTopic;
-std::vector<std::string> watch;
 
 void Widget::updateData() {
     if (!lastTopic.empty()) {
@@ -35,13 +28,28 @@ void Widget::updateData() {
     refreshDashboard(lists, ids);
 }
 
+void Widget::saveFile(std::string topic, std::string msg) {
+    explorer::Messages::saveFile(topic, msg);
+}
+
 void Widget::refresh() {
-    ui->messageBox->clear();
     std::vector<std::vector<std::string>> msgs = messages->getMessages(explorer::Messages::parseTopic(lastTopic));
     for (auto & v : msgs) {
-        ui->messageBox->addItem(QString::fromStdString(v[0]));
         for (int i = v.size(); i > 1; i--) {
-            ui->messageBox->addItem(QString::fromStdString(v[i-1]));
+            if (mem->isNew(v[0], v[i-1])) {
+                if (explorer::Messages::isPlainText(v[i-1])) {
+                    if (mem->isMyMsg(v[0], v[i-1])) {
+                        auto newLabel = new QListWidgetItem(QString::fromStdString(v[i-1]));
+                        ui->messageBox->addItem(newLabel);
+                        ui->messageBox->item(ui->messageBox->count()-1)->setForeground(Qt::red);
+                    } else {
+                        ui->messageBox->addItem(QString::fromStdString(v[i-1]));
+                    }
+                } else {
+                    Widget::saveFile(v[0], v[i-1]);
+                }
+                mem->saveNew(v[0], v[i-1]);
+            }
         }
     }
 }
@@ -103,17 +111,28 @@ void Widget::refreshDashboard(std::vector<QListWidget*> dashboards, std::vector<
     }
 }
 
-void Widget::addOnClick() {
+void Widget::showTopic() {
     ui->messageBox->clear();
-    std::vector<std::vector<std::string>> msgs = messages->getMessages(explorer::Messages::parseTopic(ui->showTopic->text().toStdString()));
+    std::string top = ui->showTopic->text().toStdString();
+    std::vector<std::vector<std::string>> msgs = messages->getMessages(explorer::Messages::parseTopic(top));
     for (auto & v : msgs) {
-        ui->messageBox->addItem(QString::fromStdString(v[0]));
         for (int i = v.size(); i > 1; i--) {
-            ui->messageBox->addItem(QString::fromStdString(v[i-1]));
+            if (explorer::Messages::isPlainText(v[i-1])) {
+                if (mem->isMyMsg(v[0], v[i-1])) {
+                    auto newLabel = new QListWidgetItem(QString::fromStdString(v[i-1]));
+                    ui->messageBox->addItem(newLabel);
+                    ui->messageBox->item(ui->messageBox->count()-1)->setForeground(Qt::red);
+                } else {
+                    ui->messageBox->addItem(QString::fromStdString(v[i-1]));
+                }
+            } else {
+                Widget::saveFile(v[0], v[i-1]);
+            }
+            mem->saveNew(v[0], v[i-1]);
         }
     }
     ui->messageBox->scrollToBottom();
-    lastTopic = ui->showTopic->text().toStdString();
+    lastTopic = top;
 }
 
 void Widget::sendMsg() {
@@ -124,7 +143,9 @@ void Widget::sendMsg() {
         }
     }
     if (messages->getMessages(explorer::Messages::parseTopic(ui->showTopic->text().toStdString())).size() < 2) {
-        messages->sendMsg(tp, ui->sendMessageInput->text().toStdString(), client);
+        std::string msg = ui->sendMessageInput->text().toStdString();
+        mem->saveMyMsg(tp, msg);
+        messages->sendMsg(tp, msg, client);
         ui->sendMessageInput->setText("");
     }
     ui->topicButton->click();
@@ -147,8 +168,9 @@ Widget::Widget(QWidget *parent) :
     } catch (const mqtt::exception& e) {
             std::cerr << "Can't connect to broker!\n" << e.what() << "\n";
     }
+    mem = new explorer::Memory();
     ui->structureView->setColumnCount(1);
-    connect(ui->topicButton, &QPushButton::released, this, &Widget::addOnClick);
+    connect(ui->topicButton, &QPushButton::released, this, &Widget::showTopic);
     connect(ui->SendButton, &QPushButton::released, this, &Widget::sendMsg);
     client->set_message_callback([&](mqtt::const_message_ptr msg) {
         messages->saveMsg(explorer::Messages::parseTopic(msg->get_topic()), msg->get_payload_str());
@@ -179,4 +201,5 @@ Widget::~Widget()
     delete ui;
     delete messages;
     delete client;
+    delete mem;
 }

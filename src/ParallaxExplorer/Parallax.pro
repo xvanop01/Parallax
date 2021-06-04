@@ -26,11 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         widget.cpp \
-        mqttMsgStruct/Messages.cpp
+        mqttMsgStruct/Messages.cpp \
+        mqttMsgStruct/Memory.cpp
 
 HEADERS += \
         widget.h \
-        mqttMsgStruct/Messages.h
+        mqttMsgStruct/Messages.h \
+        mqttMsgStruct/Memory.h
 
 FORMS += \
         widget.ui

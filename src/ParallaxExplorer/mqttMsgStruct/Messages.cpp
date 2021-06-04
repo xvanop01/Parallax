@@ -177,3 +177,19 @@ void explorer::Messages::sendMsg(std::string top, std::string msg, mqtt::async_c
     topic.publish(msg)->wait();
 }
 
+bool explorer::Messages::isPlainText(std::string msg) {
+    for (auto & ch : msg) {
+        if (ch < ' ' || ch > '~') {
+            return false;
+        }
+    }
+    return true;
+}
+
+void explorer::Messages::saveFile(std::string topic, std::string msg) {
+    std::ofstream f;
+    f.open(topic + "output");
+    f << msg;
+    f.close();
+}
+

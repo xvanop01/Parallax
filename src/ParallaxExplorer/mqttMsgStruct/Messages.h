@@ -91,6 +91,13 @@ namespace explorer {
         * @brief Send message to client under topic top
         */
         void sendMsg(std::string top, std::string msg, mqtt::async_client* client);
+        /**
+         * @brief Detect if there is unprintable char in msg
+         * @param msg Message to check
+         * @return true if all char are between ASCII 32 (space) and 126 (~)
+         */
+        static bool isPlainText(std::string msg);
+        static void saveFile(std::string topic, std::string msg);
     };
 }
 

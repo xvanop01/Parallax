@@ -14,6 +14,11 @@
 #include <string>
 #include <vector>
 #include <regex>
+#include <iostream>
+#include <fstream>
+#include "mqttMsgStruct/Messages.h"
+#include "mqttMsgStruct/Memory.h"
+#include "mqtt/async_client.h"
 
 namespace Ui {
 class Widget;
@@ -36,7 +41,7 @@ public:
     /**
     * @brief Show topic
     */
-    void addOnClick();
+    void showTopic();
     /**
     * @brief Handler for send button
     */
@@ -59,8 +64,19 @@ public:
     * @brief Periodical function for dashboard refresh
     */
     void refreshDashboard(std::vector<QListWidget *> dashboards, std::vector<QLineEdit *> ids);
+    /**
+     * @brief Save file into working directory
+     * @param topic Where will be file saved
+     * @param msg Message with file
+     */
+    void saveFile(std::string topic, std::string msg);
 private:
     Ui::Widget *ui;
+    explorer::Messages* messages;
+    explorer::Memory* mem;
+    mqtt::async_client* client;
+    std::string lastTopic;
+    std::vector<std::string> watch;
 };
 
 #endif // WIDGET_H
