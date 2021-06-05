@@ -30,6 +30,8 @@ Preklad a spustenie: Makefile
 |  |  +---Makefile
 |  +--+ParallaxExplorer
 |     +--+mqttMsgStruct
+|     |  +---Memory.cpp
+|     |  +---Memory.h
 |     |  +---Messages.cpp
 |     |  +---Messages.h
 |     +---main.cpp      GENEROVANÉ
@@ -50,8 +52,10 @@ správy na localhost).
 
 Neimplementované zo zadania:
 	- prijímanie a odosielanie binárnych súborov
-	- farebné odlíšenie odoslaných správ od prijatých
 	- ukladanie aktuálneho stavu
 	- rôzny náhlad na sledované témy v dashboarde
-	- zadávanie dát z dashboardu (posielať je možné len z Explorer záložky)
 	- konfigurácia dashboardu užívateľa
+
+UPDATE:
+	- farebné odlíšenie odoslaných správ od prijatých
+	- posielanie správ z dashboardu
