@@ -37,7 +37,7 @@ public:
     /**
     * @brief Handler for refresh button from tree view
     */
-    void handleButton();
+    void refreshTopicTree();
     /**
     * @brief Show topic
     */
@@ -65,6 +65,10 @@ public:
     */
     void refreshDashboard(std::vector<QListWidget *> dashboards, std::vector<QLineEdit *> ids);
     /**
+     * @brief sendDashboard Hanndle sending buttons in dashboard
+     */
+    void sendDashboard();
+    /**
      * @brief Save file into working directory
      * @param topic Where will be file saved
      * @param msg Message with file
@@ -77,6 +81,7 @@ private:
     mqtt::async_client* client;
     std::string lastTopic;
     std::vector<std::string> watch;
+    std::vector<explorer::Memory*> dashMem;
 };
 
 #endif // WIDGET_H

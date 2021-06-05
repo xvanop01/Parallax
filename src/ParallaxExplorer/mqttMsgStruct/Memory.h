@@ -47,6 +47,10 @@ namespace explorer {
          * @param msg Message to save
          */
         void saveMyMsg(std::string topic, std::string msg);
+        /**
+         * @brief clear Delete all saved messages
+         */
+        void clear();
     };
 }
 

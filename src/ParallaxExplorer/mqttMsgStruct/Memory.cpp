@@ -77,3 +77,9 @@ void explorer::Memory::saveMyMsg(std::string topic, std::string msg)
         this->saveNew(topic, msg);
     }
 }
+
+void explorer::Memory::clear()
+{
+    this->msgs.clear();
+    this->myMsgs.clear();
+}

@@ -29,7 +29,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tabExplorer">
     <attribute name="title">
@@ -252,7 +252,7 @@
        <x>0</x>
        <y>50</y>
        <width>260</width>
-       <height>235</height>
+       <height>205</height>
       </rect>
      </property>
     </widget>
@@ -262,7 +262,7 @@
        <x>260</x>
        <y>50</y>
        <width>280</width>
-       <height>235</height>
+       <height>205</height>
       </rect>
      </property>
     </widget>
@@ -272,7 +272,7 @@
        <x>540</x>
        <y>50</y>
        <width>260</width>
-       <height>235</height>
+       <height>205</height>
       </rect>
      </property>
     </widget>
@@ -280,7 +280,7 @@
      <property name="geometry">
       <rect>
        <x>460</x>
-       <y>285</y>
+       <y>290</y>
        <width>80</width>
        <height>25</height>
       </rect>
@@ -293,9 +293,9 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>335</y>
+       <y>340</y>
        <width>260</width>
-       <height>235</height>
+       <height>205</height>
       </rect>
      </property>
     </widget>
@@ -303,7 +303,7 @@
      <property name="geometry">
       <rect>
        <x>260</x>
-       <y>285</y>
+       <y>290</y>
        <width>200</width>
        <height>25</height>
       </rect>
@@ -313,7 +313,7 @@
      <property name="geometry">
       <rect>
        <x>180</x>
-       <y>285</y>
+       <y>290</y>
        <width>80</width>
        <height>25</height>
       </rect>
@@ -326,9 +326,9 @@
      <property name="geometry">
       <rect>
        <x>260</x>
-       <y>335</y>
+       <y>340</y>
        <width>280</width>
-       <height>235</height>
+       <height>205</height>
       </rect>
      </property>
     </widget>
@@ -336,9 +336,9 @@
      <property name="geometry">
       <rect>
        <x>540</x>
-       <y>335</y>
+       <y>340</y>
        <width>260</width>
-       <height>235</height>
+       <height>205</height>
       </rect>
      </property>
     </widget>
@@ -346,7 +346,7 @@
      <property name="geometry">
       <rect>
        <x>720</x>
-       <y>285</y>
+       <y>290</y>
        <width>80</width>
        <height>25</height>
       </rect>
@@ -359,7 +359,7 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>285</y>
+       <y>290</y>
        <width>180</width>
        <height>25</height>
       </rect>
@@ -369,7 +369,7 @@
      <property name="geometry">
       <rect>
        <x>540</x>
-       <y>285</y>
+       <y>290</y>
        <width>180</width>
        <height>25</height>
       </rect>
@@ -427,7 +427,7 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>310</y>
+       <y>315</y>
        <width>50</width>
        <height>25</height>
       </rect>
@@ -443,7 +443,7 @@
      <property name="geometry">
       <rect>
        <x>540</x>
-       <y>310</y>
+       <y>315</y>
        <width>50</width>
        <height>25</height>
       </rect>
@@ -459,7 +459,7 @@
      <property name="geometry">
       <rect>
        <x>260</x>
-       <y>310</y>
+       <y>315</y>
        <width>50</width>
        <height>25</height>
       </rect>
@@ -495,7 +495,7 @@
      <property name="geometry">
       <rect>
        <x>50</x>
-       <y>310</y>
+       <y>315</y>
        <width>210</width>
        <height>25</height>
       </rect>
@@ -505,7 +505,7 @@
      <property name="geometry">
       <rect>
        <x>590</x>
-       <y>310</y>
+       <y>315</y>
        <width>210</width>
        <height>25</height>
       </rect>
@@ -525,10 +525,164 @@
      <property name="geometry">
       <rect>
        <x>310</x>
-       <y>310</y>
+       <y>315</y>
        <width>230</width>
        <height>25</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dashboardSend1">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>255</y>
+       <width>180</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dashboardSend2">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>255</y>
+       <width>200</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dashboardSend3">
+     <property name="geometry">
+      <rect>
+       <x>540</x>
+       <y>255</y>
+       <width>180</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dashboardSend4">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>545</y>
+       <width>180</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dashboardSend5">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>545</y>
+       <width>200</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dashboardSend6">
+     <property name="geometry">
+      <rect>
+       <x>540</x>
+       <y>545</y>
+       <width>180</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="DSButton1">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>255</y>
+       <width>80</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Send</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="DSButton2">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>255</y>
+       <width>80</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Send</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="DSButton3">
+     <property name="geometry">
+      <rect>
+       <x>720</x>
+       <y>255</y>
+       <width>80</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Send</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="DSButton4">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>545</y>
+       <width>80</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Send</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="DSButton5">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>545</y>
+       <width>80</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Send</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="DSButton6">
+     <property name="geometry">
+      <rect>
+       <x>720</x>
+       <y>545</y>
+       <width>80</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Send</string>
+     </property>
+    </widget>
+    <widget class="Line" name="line">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>280</y>
+       <width>800</width>
+       <height>10</height>
+      </rect>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </widget>
