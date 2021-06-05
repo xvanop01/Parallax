@@ -59,3 +59,4 @@ Neimplementované zo zadania:
 UPDATE:
 	- farebné odlíšenie odoslaných správ od prijatých
 	- posielanie správ z dashboardu
+	- Topic tree klikateľný

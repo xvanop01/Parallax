@@ -28,6 +28,14 @@ class Widget : public QWidget
 {
     Q_OBJECT
 
+public slots:
+    /**
+     * @brief topicTreeItemClicked Fill topic on click
+     * @param item Clicked item
+     * @param column Column of item
+     */
+    void topicTreeItemClicked(QTreeWidgetItem* item, int column);
+
 public:
     /**
     * @brief Constructor

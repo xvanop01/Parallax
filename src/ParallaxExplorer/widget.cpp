@@ -37,16 +37,12 @@ void Widget::refresh() {
     for (auto & v : msgs) {
         for (int i = v.size(); i > 1; i--) {
             if (mem->isNew(v[0], v[i-1])) {
-                if (explorer::Messages::isPlainText(v[i-1])) {
-                    if (mem->isMyMsg(v[0], v[i-1])) {
-                        auto newLabel = new QListWidgetItem(QString::fromStdString(v[i-1]));
-                        ui->messageBox->addItem(newLabel);
-                        ui->messageBox->item(ui->messageBox->count()-1)->setForeground(Qt::red);
-                    } else {
-                        ui->messageBox->addItem(QString::fromStdString(v[i-1]));
-                    }
+                if (mem->isMyMsg(v[0], v[i-1])) {
+                    auto newLabel = new QListWidgetItem(QString::fromStdString(v[i-1]));
+                    ui->messageBox->addItem(newLabel);
+                    ui->messageBox->item(ui->messageBox->count()-1)->setForeground(Qt::red);
                 } else {
-                    Widget::saveFile(v[0], v[i-1]);
+                    ui->messageBox->addItem(QString::fromStdString(v[i-1]));
                 }
                 mem->saveNew(v[0], v[i-1]);
             }
@@ -170,16 +166,12 @@ void Widget::showTopic() {
     std::vector<std::vector<std::string>> msgs = messages->getMessages(explorer::Messages::parseTopic(top));
     for (auto & v : msgs) {
         for (int i = v.size(); i > 1; i--) {
-            if (explorer::Messages::isPlainText(v[i-1])) {
-                if (mem->isMyMsg(v[0], v[i-1])) {
-                    auto newLabel = new QListWidgetItem(QString::fromStdString(v[i-1]));
-                    ui->messageBox->addItem(newLabel);
-                    ui->messageBox->item(ui->messageBox->count()-1)->setForeground(Qt::red);
-                } else {
-                    ui->messageBox->addItem(QString::fromStdString(v[i-1]));
-                }
+            if (mem->isMyMsg(v[0], v[i-1])) {
+                auto newLabel = new QListWidgetItem(QString::fromStdString(v[i-1]));
+                ui->messageBox->addItem(newLabel);
+                ui->messageBox->item(ui->messageBox->count()-1)->setForeground(Qt::red);
             } else {
-                Widget::saveFile(v[0], v[i-1]);
+                ui->messageBox->addItem(QString::fromStdString(v[i-1]));
             }
             mem->saveNew(v[0], v[i-1]);
         }
@@ -209,6 +201,19 @@ void Widget::refreshTopicTree() {
     explorer::Messages::createChild(messages->topics, nullptr, ui);
 }
 
+void Widget::topicTreeItemClicked(QTreeWidgetItem *item, int column)
+{
+    QTreeWidgetItem *target = item;
+    QString fullTopic = item->text(column);
+    target = item->parent();
+    while (target != NULL) {
+        fullTopic = target->text(column) + fullTopic;
+        target = target->parent();
+    }
+    ui->showTopic->setText(fullTopic);
+    showTopic();
+}
+
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
@@ -216,6 +221,8 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
     client = new mqtt::async_client(SERVER_ADDRESS, "", mqtt::create_options(MQTTVERSION_5));
     connect(ui->RefreshButton, &QPushButton::released, this, &Widget::refreshTopicTree);
+    connect(ui->structureView, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
+            this, SLOT(topicTreeItemClicked(QTreeWidgetItem*,int)));
     try {
         messages = new explorer::Messages(50, client);
     } catch (const mqtt::exception& e) {
