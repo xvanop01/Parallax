@@ -29,7 +29,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tabExplorer">
     <attribute name="title">
@@ -161,9 +161,22 @@
       <rect>
        <x>200</x>
        <y>540</y>
-       <width>496</width>
+       <width>396</width>
        <height>29</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="fileButton">
+     <property name="geometry">
+      <rect>
+       <x>596</x>
+       <y>540</y>
+       <width>100</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Select File</string>
      </property>
     </widget>
    </widget>

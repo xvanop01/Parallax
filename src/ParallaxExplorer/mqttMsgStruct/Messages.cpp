@@ -177,6 +177,12 @@ void explorer::Messages::sendMsg(std::string top, std::string msg, mqtt::async_c
     topic.publish(msg)->wait();
 }
 
+void explorer::Messages::sendMsg(std::string top, QByteArray msg, mqtt::async_client *client)
+{
+    mqtt::topic topic{*client, top, QOS};
+    topic.publish(msg.constData(), msg.length())->wait();
+}
+
 void explorer::Messages::saveFile(std::string topic, std::string msg) {
     std::ofstream f;
     f.open(topic + "output");

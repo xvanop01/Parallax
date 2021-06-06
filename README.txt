@@ -51,7 +51,6 @@ pravidelné posielanie správ niekoľkých meracích senzorov (taktiež posiela
 správy na localhost).
 
 Neimplementované zo zadania:
-	- prijímanie a odosielanie binárnych súborov
 	- ukladanie aktuálneho stavu
 	- rôzny náhlad na sledované témy v dashboarde
 	- konfigurácia dashboardu užívateľa
@@ -60,3 +59,5 @@ UPDATE:
 	- farebné odlíšenie odoslaných správ od prijatých
 	- posielanie správ z dashboardu
 	- Topic tree klikateľný
+	- prijímanie a odosielanie binárnych súborov (detekcia obrázkov)
+	- náhľad na obrázok po kliknutí v novom okne

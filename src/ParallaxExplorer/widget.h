@@ -11,6 +11,8 @@
 #include <QTreeWidgetItem>
 #include <QTimer>
 #include <QListWidget>
+#include <QFileDialog>
+#include <QPixmap>
 #include <string>
 #include <vector>
 #include <regex>
@@ -35,6 +37,11 @@ public slots:
      * @param column Column of item
      */
     void topicTreeItemClicked(QTreeWidgetItem* item, int column);
+    /**
+     * @brief displayImageClicked Detect which item was clicked and display coresponding img
+     * @param item Image item clicked
+     */
+    void displayImageClicked(QListWidgetItem* item);
 
 public:
     /**
@@ -82,6 +89,16 @@ public:
      * @param msg Message with file
      */
     void saveFile(std::string topic, std::string msg);
+    /**
+     * @brief appendFile Handle choosing file to send
+     */
+    void appendFile();
+    /**
+     * @brief showImage Display image in message
+     * @param msg Message with image data
+     */
+    void showImage(std::string msg);
+
 private:
     Ui::Widget *ui;
     explorer::Messages* messages;
@@ -90,6 +107,8 @@ private:
     std::string lastTopic;
     std::vector<std::string> watch;
     std::vector<explorer::Memory*> dashMem;
+    QString fileName;
+    std::vector<std::string> images;
 };
 
 #endif // WIDGET_H

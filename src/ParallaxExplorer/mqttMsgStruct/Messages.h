@@ -91,6 +91,12 @@ namespace explorer {
         * @brief Send message to client under topic top
         */
         void sendMsg(std::string top, std::string msg, mqtt::async_client* client);
+        void sendMsg(std::string top, QByteArray msg, mqtt::async_client* client);
+        /**
+         * @brief saveFile Save file in msg
+         * @param topic Topic of the file
+         * @param msg Message with file data
+         */
         static void saveFile(std::string topic, std::string msg);
     };
 }
